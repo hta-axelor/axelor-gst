@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views
+  http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+  
+	<grid id="gst-product-grid" name="product-grid" title="Product" model="com.axelor.apps.base.db.Product">
+		<toolbar>
+			<button name="product_grid_print_btn" icon="fa-print" title="Report"
+				onClick="action-gst-product-validate,action-gst-method-product-set-attachment-path,action-gst-report-product" />
+			<button name="product_grid_create_invoice_btn" icon="fa-list"
+				title="Invoice"
+				onClick="action-gst-product-validate,action-gst-method-product-get-invoice-details" />
+		</toolbar>
+		<field name="name" />
+		<field name="code" />
+		<field name="hsbn" />
+		<field name="category" />
+		<field name="salePrice" />
+		<field name="costPrice" />
+		<field name="gstRate" />
+	</grid>
+
+	<form id="gst-product-form" name="product-form" title="Product" model="com.axelor.apps.base.db.Product">
+		<panel>
+			<field name="image" title="Image" widget="image" />
+		</panel>
+		<panel>
+			<field name="name" />
+			<field name="code" />
+			<field name="hsbn" />
+			<field name="category" onChange="action-gst-record-product-category-copy-gst" />
+			<field name="salePrice" />
+			<field name="costPrice" />
+			<field name="gstRate" />
+		</panel>
+	</form>
+
+	<action-record name="action-gst-record-product-category-copy-gst"
+		model="com.axelor.apps.base.db.Product">
+		<field name="gstRate" expr="eval:category?.gstRate" />
+	</action-record>
+
+	<cards name="product-cards" title="Cards View" model="com.axelor.gst.db.Party"
+		orderBy="name">
+		<field name="name" />
+		<field name="code" />
+		<field name="hsbn" />
+		<field name="category" />
+		<field name="gstRate" />
+		<field name="hasImage" />
+
+		<template><![CDATA[
+ 		<div class="span4 card-image">
+          <img ng-src="{{$image(null, 'image')}}">
+   		   <strong>{{name}}</strong>
+         </div>
+         <div class="span8">
+           {{code}}<br>
+           {{hsbn}}<br>
+           <strong> {{category.name}}</strong><br>
+           <abbr ng-if="gstRate" title="gstRate">GR:</abbr> {{gstRate}}<br>
+         </div>
+        ]]></template>
+	</cards>
+
+	<action-validate name="action-gst-product-validate">
+		<error message="Please select at least 1 item" if="eval :_ids == null" />
+	</action-validate>
+
+	<action-method name="action-gst-method-product-set-attachment-path">
+		<call class="com.axelor.gst.web.ProductController" method="setAttachmentPath" />
+	</action-method>
+
+	<action-report name="action-gst-report-product" design="product_report.rptdesign"
+		output="so-${date}${time}" format="pdf">
+		<param name="ids" expr="eval: _ids.join(',')" />
+		<param name="AttachmentPath" expr="eval: AttachmentPath" />
+	</action-report>
+
+	<action-method name="action-gst-method-product-get-invoice-details">
+		<call class="com.axelor.gst.web.ProductController" method="getInvoiceDetails" />
+	</action-method>
+
+</object-views>

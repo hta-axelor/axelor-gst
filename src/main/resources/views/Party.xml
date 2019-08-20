@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views
+  http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+
+	<grid name="party-grid" title="Party" model="com.axelor.gst.db.Party">
+		<field name="reference" />
+		<field name="name" />
+		<field name="type" />
+		<field name="isCustomer" />
+		<field name="isSupplier" />
+		<field name="gstin" />
+	</grid>
+
+	<form name="party-form" title="Party" model="com.axelor.gst.db.Party"
+		onSave="action-gst-method-party-get-reference">
+		<panel>
+			<field name="reference" />
+			<field name="name" />
+			<field name="type" />
+			<field name="gstin" />
+			<field name="isCustomer" />
+			<field name="isSupplier" />
+		</panel>
+
+		<panel>
+			<field name="contactList">
+				<editor x-show-titles="false">
+					<field name="name" />
+					<field name="type" />
+					<field name="primaryEmail" />
+					<field name="secondaryEmail" />
+					<field name="primaryPhone" />
+					<field name="secondaryPhone" />
+				</editor>
+			</field>
+		</panel>
+
+		<panel>
+			<field name="addressList">
+				<editor x-show-titles="false">
+					<field name="type" />
+					<field name="line1" />
+					<field name="line2" />
+					<field name="city" onChange="action-gst-record-address-city-default-values" />
+					<field name="state" />
+					<field name="country" />
+					<field name="pincode" />
+				</editor>
+			</field>
+		</panel>
+
+	</form>
+
+	<cards name="party-cards" title="Cards View" model="com.axelor.gst.db.Party"
+		orderBy="name">
+		<field name="name" />
+		<field name="type" />
+		<field name="gstin" />
+		<field name="contact" />
+
+		<template><![CDATA[
+ 		 <div class="span4 card-image">
+   		   <strong>{{name}}</strong>
+         </div>
+         <div class="span8">
+       	   <strong ng-if="type==1" >Company</strong>
+       	   <strong ng-if="type==2" >Individual</strong>
+      	  <br> <strong>{{gstin}}</strong> <br>
+       	   {{contact.name}}<br>
+           <abbr ng-if="contact.primaryPhone">P:</abbr> {{contact.primaryPhone}}<br>
+           <abbr ng-if="contact.primaryEmail">E:</abbr> {{contact.primaryEmail}}<br>
+         </div>
+        ]]></template>
+	</cards>
+
+	<action-method name="action-gst-method-party-get-reference">
+		<call class="com.axelor.gst.web.PartyController" method="setReference" />
+	</action-method>
+
+</object-views>

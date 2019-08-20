@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/domain-models
+  http://axelor.com/xml/ns/domain-models/domain-models_5.0.xsd">
+
+  <module name="account" package="com.axelor.apps.account.db"/>
+
+	<entity name="Invoice">
+		<string name="statusSelect" title="Status" readonly="true"
+			selection="gst.invoice.status.selection" default="1" />
+		<many-to-one name="company" title="Company" ref="com.axelor.apps.base.db.Company" required="true" />
+		<string name="reference" title="Reference" readonly="true" />
+		<datetime name="invoiceDate" title="Date" />
+		<integer name="priority" title="Priority"/>
+		<many-to-one name="party" title="Party" ref="com.axelor.gst.db.Party" required="true"/>
+		<many-to-one name="partyContact" title="Party Contact" ref="com.axelor.gst.db.Contact" />
+		<many-to-one name="invoiceAddress" title="Invoice Address" ref="com.axelor.apps.base.db.Address" required="true" />
+		<many-to-one name="shippingAddress" title="Shipping Address" ref="com.axelor.apps.base.db.Address" />
+		<boolean name="isInvoiceAddress" title="Use invoice address as shipping"
+			default="true" />
+		<decimal name="netAmount" title="Net Amount" readonly="true" />
+		<decimal name="netIgst" title="Net IGST" readonly="true" />
+		<decimal name="netCgst" title="Net CGST" readonly="true" />
+		<decimal name="netSgst" title="Net SGST" readonly="true" />
+		<decimal name="grossAmount" title="Gross Amount" readonly="true" />
+		<one-to-many name="invoiceItemsList" title="Invoice Items" ref="com.axelor.apps.account.db.InvoiceLine" />
+
+		<extra-code><![CDATA[
+		  public static final String STATUS_PAID = "3";
+		  public static final String STATUS_ALL_INVOICES = "5";
+		]]></extra-code>
+	</entity>
+
+</domain-models>

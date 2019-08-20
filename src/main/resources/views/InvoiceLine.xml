@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views
+  http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+
+	<grid id="gst-invoice-line-grid" name="invoice-line-grid" title="Invoice Line"
+		model="com.axelor.apps.account.db.InvoiceLine">
+		<field name="product" />
+		<field name="hsbn" />
+		<field name="item" />
+		<field name="qty" />
+		<field name="price" />
+		<field name="netAmount" />
+	</grid>
+
+	<form id="gst-invoice-line-form" name="invoice-line-form" title="Invoice Line"
+		model="com.axelor.apps.account.db.InvoiceLine">
+		<panel>
+			<field name="product" onChange="action-gst-group-invoice-line-product-on-change" />
+			<field name="hsbn" />
+			<field name="item" />
+			<field name="qty"
+				onChange="action-gst-method-invoice-line-calculate-all-items" />
+			<field name="price"
+				onChange="action-gst-method-invoice-line-calculate-all-items" />
+			<field name="netAmount" />
+			<field name="gstRate" />
+			<field name="igst" />
+			<field name="cgst" />
+			<field name="sgst" />
+			<field name="grossAmount" />
+		</panel>
+	</form>
+
+	<action-group name="action-gst-group-invoice-line-product-on-change">
+		<action name="action-gst-attrs-invoice-line-set-product-values" />
+		<action name="action-gst-method-invoice-line-calculate-all-items" />
+	</action-group>
+
+	<action-method name="action-gst-method-invoice-line-calculate-all-items">
+		<call class="com.axelor.gst.web.InvoiceLineController" method="setAllItems" />
+	</action-method>
+
+	<action-attrs name="action-gst-attrs-invoice-line-set-product-values">
+		<attribute for="item" name="value" expr=""/>
+		<attribute for="price" name="value" expr="0" />
+		<attribute for="hsbn" name="value" expr="" />
+		<attribute for="item" name="value" expr="eval: product?.category?.name + ' :[' + product?.code + ']'" if="eval: product?.category"/>
+		<attribute for="price" name="value" expr="eval: product?.salePrice"/>
+		<attribute for="hsbn" name="value" expr="eval: product?.hsbn"/>
+		<attribute for="gstRate" name="value" expr="eval: product?.gstRate"/>
+	</action-attrs>
+
+
+</object-views>

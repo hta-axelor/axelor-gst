@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views
+  http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+  
+	<dashboard name="gst.dashboard" title="GST Dashboard" width="large">	
+     	<dashlet action="dashlet.unpaid.invoice.per.customer" height="350" />
+		<dashlet action="dashlet.paid.invoice.per.category.per.product"
+			height="350" />
+	    <dashlet action="dashlet.customers.by.state" height="350" />
+		<dashlet action="dashlet.invoice.per.status.per.amount"
+			height="350" />
+		<dashlet action="dashlet.no.of.invoice.per.status.per.amount"
+			height="350" />
+		<dashlet action="dashlet.grid.view.older.validated.invoices"
+			height="350" />
+	</dashboard>
+
+	<action-view name="dashlet.unpaid.invoice.per.customer"
+		title="Unpaid invoices per customer">
+		<view type="chart" name="chart.unpaid.invoice.per.customer.bar" />
+	</action-view>
+
+	<action-view name="dashlet.paid.invoice.per.category.per.product"
+		title="Paid invoices per category per product">
+		<view type="chart" name="chart.paid.invoice.per.category.per.product.bar" />
+	</action-view>
+	
+	<action-view name="dashlet.customers.by.state" title="Customers by state">
+		<view type="chart" name="chart.customers.by.party.pie" />
+	</action-view>
+
+	<action-view name="dashlet.invoice.per.status.per.amount"
+		title="Invoices per status per amount">
+		<view type="chart" name="chart.invoice.per.status.amount.bar" />
+	</action-view>
+
+	<action-view name="dashlet.no.of.invoice.per.status.per.amount"
+		title="No. of invoices per status">
+		<view type="chart" name="chart.no.of.invoice.per.status.line" />
+	</action-view>
+
+	<action-view name="dashlet.grid.view.older.validated.invoices"
+		title="Invoices validated older than 1 month" model="com.axelor.apps.account.db.Invoice">
+		<view type="grid" name="invoice-grid" />
+		<domain>self.invoiceDate &lt;= :previousMonth AND self.statusSelect = '2' </domain>
+		<context name="previousMonth" expr="eval: __datetime__.minusMonths(1)" />
+	</action-view>
+
+</object-views>
