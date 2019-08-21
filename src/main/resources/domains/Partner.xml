@@ -6,8 +6,9 @@
 
   <module name="base" package="com.axelor.apps.base.db"/>
 
-  <entity name="Country"> 
-    <string name="name" title="Name" required="true"/>
+  <entity name="Partner"> 
+    <string name="gstin" title="GSTIN"/>
+        <one-to-many name="contactList" title="Contacts" ref="com.axelor.gst.db.Contact"/>
   </entity>
 
 </domain-models>

@@ -9,18 +9,10 @@
 	<entity name="Address">
 		<string name="type" title="Type" selection="gst.address.type.selection"
 			default="1" required="true" />
-		<string name="line1" title="Line 1" required="true" />
-		<string name="line2" title="Line 2"/>
-		<many-to-one name="city" title="City" ref="com.axelor.apps.base.db.City" required="true" />
 		<many-to-one name="state" title="State" ref="com.axelor.gst.db.State" />
-		<many-to-one name="country" title="Country" ref="com.axelor.apps.base.db.Country" required="true" />
-		<string name="pincode" title="Pincode" />
-		<string name="fullAddress" namecolumn="true"
-			search="line1,line2,city,state,country,pincode"> 
-  		  <![CDATA[       
-  		       return line1 + (line2 == null ? "" :"," +line2) + " "+ city.getName() + (state == null ? "" :"," +state.getName()) + "," + country.getName() + (pincode == null ? "" :"-" + pincode);
-          ]]></string>
-
+		
+		   <string name="fullName" namecolumn="true" search="addressL2,addressL3,addressL4,addressL5,addressL6,city,state" title="Address"/>
+		
 		<extra-code><![CDATA[
 		  public static final String ADDRESS_DEFAULT = "1";
 		  public static final String ADDRESS_INVOICE = "2";

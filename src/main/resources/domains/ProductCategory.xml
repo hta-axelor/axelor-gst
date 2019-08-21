@@ -7,8 +7,6 @@
 	<module name="base" package="com.axelor.apps.base.db"/>
 
 	<entity name="ProductCategory">
-		<string name="name" title="Name" required="true"/>
-		<string name="code" title="Code" required="true"/>
 		<decimal name="gstRate" title="GST Rate"/>
 	</entity>
 

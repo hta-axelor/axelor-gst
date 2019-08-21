@@ -7,13 +7,7 @@
 	<module name="base" package="com.axelor.apps.base.db" />
 
 	<entity name="Product">
-		<string name="name" title="Name" required="true" />
-		<string name="code" title="Code" required="true" />
 		<string name="hsbn" title="HSBN"/>
-		<many-to-one name="category" title="Category" ref="com.axelor.apps.base.db.ProductCategory" />
-		<decimal name="salePrice" title="Sale Price"/>
-		<decimal name="costPrice" title="Cost Price"/>
-	    <many-to-one name="image" title="Image" ref="com.axelor.meta.db.MetaFile"/>	
 		<decimal name="gstRate" title="GST Rate"/>
 	</entity>
 

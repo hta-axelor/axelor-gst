@@ -6,12 +6,8 @@
 
     <module name="base" package="com.axelor.apps.base.db"/>
 	<entity name="Company">
-		<string name="name" title="Name" required="true" />
-		<many-to-one name="logo" title="Logo" ref="com.axelor.meta.db.MetaFile" />
 		<one-to-many name="contactList" title="Contacts" ref="com.axelor.gst.db.Contact" />
 		<string name="gstin"  title="GSTIN" min="15" max="15"/>
-		<one-to-many name="bankDetailsList" title="Bank Details" ref="com.axelor.gst.db.BankAccount" />
-		<many-to-one name="address" title="Address" ref="com.axelor.apps.base.db.Address" />
 	</entity>
 
 </domain-models>
