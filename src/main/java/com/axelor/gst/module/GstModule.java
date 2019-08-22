@@ -1,8 +1,6 @@
 package com.axelor.gst.module;
 
 import com.axelor.app.AxelorModule;
-import com.axelor.apps.base.db.repo.SequenceRepository;
-import com.axelor.gst.repo.GstSequenceRepository;
 import com.axelor.gst.service.InvoiceLineService;
 import com.axelor.gst.service.InvoiceLineServiceImpl;
 import com.axelor.gst.service.InvoiceService;

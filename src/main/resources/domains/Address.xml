@@ -7,19 +7,8 @@
 	<module name="base" package="com.axelor.apps.base.db"/>
 
 	<entity name="Address">
-		<string name="type" title="Type" selection="gst.address.type.selection"
-			default="1" required="true" />
 		<many-to-one name="state" title="State" ref="com.axelor.gst.db.State" />
-		
-		   <string name="fullName" namecolumn="true" search="addressL2,addressL3,addressL4,addressL5,addressL6,city,state" title="Address"/>
-		
-		<extra-code><![CDATA[
-		  public static final String ADDRESS_DEFAULT = "1";
-		  public static final String ADDRESS_INVOICE = "2";
-		  public static final String ADDRESS_SHIPPING = "3";
-		  public static final String ADDRESS_OTHER = "4";
-		]]></extra-code>
-
+		<string name="fullName" namecolumn="true" search="addressL2,addressL3,addressL4,addressL5,addressL6,city,state" title="Address"/>
 	</entity>
 
 </domain-models>

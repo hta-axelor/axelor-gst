@@ -8,7 +8,14 @@
 
   <entity name="Partner"> 
     <string name="gstin" title="GSTIN"/>
-        <one-to-many name="contactList" title="Contacts" ref="com.axelor.gst.db.Contact"/>
+    <string name="contactType" title="Contact Type" selection="gst.contact.type.selection" required="true" />
+    <one-to-one name="secondaryEmailAddress" ref="com.axelor.apps.message.db.EmailAddress" title="Secondary Email"/>
+    
+        <extra-code><![CDATA[
+		  public static final String CONTACT_PRIMARY = "1";
+		  public static final String CONTACT_SECONDARY = "2";
+		  public static final String CONTACT_OTHERS = "3";
+		]]></extra-code>
   </entity>
 
 </domain-models>

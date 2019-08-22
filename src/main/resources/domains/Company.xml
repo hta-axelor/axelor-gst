@@ -6,8 +6,8 @@
 
     <module name="base" package="com.axelor.apps.base.db"/>
 	<entity name="Company">
-		<one-to-many name="contactList" title="Contacts" ref="com.axelor.gst.db.Contact" />
-		<string name="gstin"  title="GSTIN" min="15" max="15"/>
+		<string name="gstin" title="GSTIN" min="15" max="15"/>
+		<one-to-many name="contactList" ref="com.axelor.apps.base.db.Partner" title="Contacts"/>
 	</entity>
 
 </domain-models>

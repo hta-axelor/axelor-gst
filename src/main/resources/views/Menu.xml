@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://axelor.com/xml/ns/object-views
   http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
   
-	<menuitem name="gst-root" title="GST" icon="fa-book"/>
+	<menuitem name="gst-root" title="GST" icon="fa-book" if="__config__.app.isApp('gst')"/>
 
 	<!-- DashBoard -->
 	<menuitem name="gst-root-dashboard" title="Dashboard" parent="gst-root" icon="fa-dashboard"

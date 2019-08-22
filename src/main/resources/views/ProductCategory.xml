@@ -4,18 +4,24 @@
 	xsi:schemaLocation="http://axelor.com/xml/ns/object-views
   http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
   
-	<grid id="gst-product-category-grid" name="product-category-grid" title="Product Category" model="com.axelor.apps.base.db.ProductCategory">
-		<field name="name" />
-		<field name="code" />
-		<field name="gstRate" />
-	</grid>
+    <grid id="gst-product-category-grid" name="product-category-grid" title="Product categories" model="com.axelor.apps.base.db.ProductCategory" orderBy="name">
+        <field name="name"/>
+        <field name="code" x-bind="{{code|unaccent|uppercase}}"/>
+        <field name="parentProductCategory" form-view="product-category-form" grid-view="product-family-grid"/>
+       	<field name="gstRate" />
+    </grid>
 
-	<form id="gst-product-category-form" name="product-category-form" title="Product Category" model="com.axelor.apps.base.db.ProductCategory">
-		<panel>
-			<field name="name"/>
-			<field name="code"/>
-			<field name="gstRate" />
+	<form id="gst-product-category-form" name="product-category-form" title="Product category" model="com.axelor.apps.base.db.ProductCategory" width="large">
+	    <toolbar>
+			<button name="viewProductsBtn" title="View Products" onClick="action-view-product-by-category"/>
+		</toolbar>
+		<panel name="mainPanel" >
+        	<field name="name"/>
+        	<field name="code" x-bind="{{code|unaccent|uppercase}}" />
+	        <field name="parentProductCategory" form-view="product-category-form" grid-view="product-family-grid"/>
+	        <field name="gstRate" />
 		</panel>
-	</form>
+   		<panel-dashlet name="salesTurnoverPanel"  title="Sales Turnover" action="dashlet.category.sales.turnover.per.month" colSpan="12" height="350" if-module="axelor-supplychain" if="__config__.app.isApp('supplychain')" />
+    </form>  
 
 </object-views>
