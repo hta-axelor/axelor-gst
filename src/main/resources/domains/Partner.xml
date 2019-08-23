@@ -8,7 +8,7 @@
 
   <entity name="Partner"> 
     <string name="gstin" title="GSTIN"/>
-    <string name="contactType" title="Contact Type" selection="gst.contact.type.selection" required="true" />
+    <string name="contactType" title="Contact Type" selection="gst.contact.type.selection" />
     <one-to-one name="secondaryEmailAddress" ref="com.axelor.apps.message.db.EmailAddress" title="Secondary Email"/>
     
         <extra-code><![CDATA[

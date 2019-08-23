@@ -27,13 +27,13 @@
 		<view type="form" name="company-form" />
 	</action-view>
 
-	<menuitem name="gst-root-company-bank-account" title="Bank Account"
-		parent="gst-root-company" action="gst.root.company.bank.account" />
+	<menuitem name="gst-root-company-bank-details" title="Bank Details"
+		parent="gst-root-company" action="gst.root.company.bank.details" />
 
-	<action-view name="gst.root.company.bank.account" title="Bank Account"
-		model="com.axelor.gst.db.BankAccount">
-		<view type="grid" name="bank-account-grid" />
-		<view type="form" name="bank-account-form" />
+	<action-view name="gst.root.company.bank.details" title="Bank Details"
+		model="com.axelor.apps.base.db.BankDetails">
+		<view type="grid" name="bank-details-grid" />
+		<view type="form" name="bank-details-form" />
 	</action-view>
 
 	<menuitem name="gst-root-company-sequence" title="Sequence"
@@ -48,63 +48,57 @@
 
 
 
-	<!-- Party -->
-	<menuitem name="gst-root-party" title="Party" parent="gst-root" icon="fa-handshake-o"/>
+	<!-- Partner -->
+	<menuitem name="gst-root-partner" title="Partner" parent="gst-root" icon="fa-handshake-o"/>
 
-	<menuitem name="gst-root-party-party" title="Party" parent="gst-root-party"
-		action="gst.root.party.party" />
+	<menuitem name="gst-root-partner-partner" title="Partner" parent="gst-root-partner"
+		action="gst.root.partner.partner" />
 
-	<action-view name="gst.root.party.party" title="Party"
-		model="com.axelor.gst.db.Party">
-		<view type="cards" name="party-cards" />
-		<view type="grid" name="party-grid" />
-		<view type="form" name="party-form" />
+	<action-view name="gst.root.partner.partner" title="Partner"
+		model="com.axelor.apps.base.db.Partner">
+		<view type="cards" name="partner-cards" />
+		<view type="grid" name="partner-grid" />
+		<view type="form" name="partner-form" />
 		<context name="json-enhance" expr="true" />
 	</action-view>
 
-	<menuitem name="gst-root-party-contact" title="Contact"
-		parent="gst-root-party" action="gst.root.party.contact" />
+	<menuitem name="gst-root-partner-contact" title="Contact"
+		parent="gst-root-partner" action="referential.root.contacts" />
 
-	<action-view name="gst.root.party.contact" title="Contact"
-		model="com.axelor.gst.db.Contact">
-		<view type="grid" name="contact-grid" />
-		<view type="form" name="contact-form" />
-	</action-view>
+	<menuitem name="gst-root-partner-configurations" title="Configurations"
+		parent="gst-root-partner" icon="fa-cog" />
 
-	<menuitem name="gst-root-party-configurations" title="Configurations"
-		parent="gst-root-party" icon="fa-cog" />
+	<menuitem name="gst-root-partner-configurations-address" title="Address"
+		parent="gst-root-partner-configurations" action="gst.root.partner.configurations.address" />
 
-	<menuitem name="gst-root-party-configurations-address" title="Address"
-		parent="gst-root-party-configurations" action="gst.root.party.configurations.address" />
-
-	<action-view name="gst.root.party.configurations.address"
+	<action-view name="gst.root.partner.configurations.address"
 		title="Address" model="com.axelor.apps.base.db.Address">
 		<view type="grid" name="address-grid" />
 		<view type="form" name="address-form" />
 	</action-view>
 
-	<menuitem name="gst-root-party-configurations-city" title="City"
-		parent="gst-root-party-configurations" action="gst.root.party.configurations.city" />
+	<menuitem name="gst-root-partner-configurations-city" title="City"
+		parent="gst-root-partner-configurations" action="gst.root.partner.configurations.city" />
 
-	<action-view name="gst.root.party.configurations.city"
+	<action-view name="gst.root.partner.configurations.city"
 		title="City" model="com.axelor.apps.base.db.City">
 		<view type="grid" name="city-grid" />
 		<view type="form" name="city-form" />
 	</action-view>
 
-	<menuitem name="gst-root-party-configurations-state" title="State"
-		parent="gst-root-party-configurations" action="gst.root.party.configurations.state" />
+	<menuitem name="gst-root-partner-configurations-state" title="State"
+		parent="gst-root-partner-configurations" action="gst.root.partner.configurations.state" />
 
-	<action-view name="gst.root.party.configurations.state"
+	<action-view name="gst.root.partner.configurations.state"
 		title="State" model="com.axelor.gst.db.State">
 		<view type="grid" name="state-grid" />
 		<view type="form" name="state-form" />
 	</action-view>
 
-	<menuitem name="gst-root-party-configurations-country" title="Country"
-		parent="gst-root-party-configurations" action="gst.root.party.configurations.country" />
+	<menuitem name="gst-root-partner-configurations-country" title="Country"
+		parent="gst-root-partner-configurations" action="gst.root.partner.configurations.country" />
 
-	<action-view name="gst.root.party.configurations.country"
+	<action-view name="gst.root.partner.configurations.country"
 		title="Country" model="com.axelor.apps.base.db.Country">
 		<view type="grid" name="country-grid" />
 		<view type="form" name="country-form" />

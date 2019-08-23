@@ -156,21 +156,15 @@
 					</field>
 				</panel>
 				<panel name="generalContactDetailsPanel" title="General contact details" colSpan="12">
-				    <field name="contactType" colspan="6"/>
-                    <field name="fax" colSpan="6" placeholder="+33000000000" pattern="^\+?([\s()-.]*\d){7,}$" onChange="action-partner-method-normalize-fax"/>
-					<field name="fixedPhone" colSpan="6" placeholder="+33100000000" pattern="^\+?([\s()-.]*\d){7,}$" onChange="action-partner-method-normalize-fixedPhone"/>
-					<field name="mobilePhone" colSpan="6" hideIf="partnerTypeSelect == 1" placeholder="+33100000000" pattern="^\+?([\s()-.]*\d){7,}$" onChange="action-partner-method-normalize-mobilePhone"/>
+					<field name="fixedPhone" colSpan="3" placeholder="+33100000000" pattern="^\+?([\s()-.]*\d){7,}$" onChange="action-partner-method-normalize-fixedPhone"/>
+					<field name="fax" colSpan="3" placeholder="+33000000000" pattern="^\+?([\s()-.]*\d){7,}$" onChange="action-partner-method-normalize-fax"/>
+					<field name="mobilePhone" colSpan="3" hideIf="partnerTypeSelect == 1" placeholder="+33100000000" pattern="^\+?([\s()-.]*\d){7,}$" onChange="action-partner-method-normalize-mobilePhone"/>
 					<field name="emailAddress" canSelect="false" colSpan="6" form-view="email-address-simple-form" x-show-icons="false">
 						<editor x-show-titles="false">
 							<field name="address" colSpan="12" placeholder="whatever@example.com" pattern="^[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[a-z]{2,})$"/>
 						</editor>
 					</field>
-					<field name="secondaryEmailAddress" canSelect="false" colSpan="6" form-view="email-address-simple-form" x-show-icons="false">
-						<editor x-show-titles="false">
-							<field name="address" colSpan="12" placeholder="whatever@example.com" pattern="^[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[a-z]{2,})$"/>
-						</editor>
-					</field>
-					<field name="webSite" colSpan="12" placeholder="http://www.url.com" pattern="^(?:http(?:s)?://)?\S+(?:\.\S+)+$"/>
+					<field name="webSite" placeholder="http://www.url.com" pattern="^(?:http(?:s)?://)?\S+(?:\.\S+)+$"/>
 				</panel>
 				<panel name="partnerDetailsPanel" title="Partner Details" hideIf="isEmployee" colSpan="12" >
 					<panel colSpan="6" name="partnerCategoryPanel">
@@ -263,5 +257,106 @@
             <mail-followers />
         </panel-mail>
     </form>
+    
+    <form id="gst-partner-contact-form" name="partner-contact-form" title="Contact" model="com.axelor.apps.base.db.Partner"
+		  onNew="action-partner-contact-record-default,action-partner-attrs-partner-seq-editable"
+		  onLoad="action-group-partner-contact-onload"
+		  onSave="save,action-partner-method-set-user-partner,action-partner-method-add-contact-partner">
+		<toolbar>
+			<button name="convertToIndividualPartnerBtn" title="Convert into an individual partner" icon="fa-user" onClick="action-convert-into-individual-partner,close" showIf="id != null &amp;&amp; isContact == true &amp;&amp; mainPartner == null"/>
+		</toolbar>
+		<menubar>
+            <menu title="Reports" icon="fa-files-o" showTitle="true">
+				<item title="Envelope" action="save,action-partner-method-show-envelope" readonlyIf="id == null"/>
+				<item title="Customer Situation" action="save,action-partner-method-show-client-situation" readonlyIf="id == null" showIf="isContact == false" if-module="axelor-account"/>
+			</menu>
+		</menubar>
+		<panel-include view="incl-event-actions-partner-form" />
+		<panel name="mainPanel" >
+			<panel name="imagePanel" colSpan="3">
+				<field name="picture" widget="Image" showTitle="false" colSpan="12">
+					<viewer>
+						<![CDATA[
+					    <div>
+			    			<img width="80%" ng-show="record.picture" ng-src="{{$image('picture', 'content')}}" />
+          					<img width="80%" ng-show="!record.picture && record.titleSelect == 1" src="img/partner-m-default.png" />
+          					<img width="80%" ng-show="!record.picture && record.titleSelect == 2" src="img/partner-w-default.png" />
+        					<img width="80%" ng-show="!record.picture && (record.titleSelect > 2 || !record.titleSelect)" src="img/partner-default.png" />
+     					</div>
+					]]>
+					</viewer>
+				</field>
+				<panel name="socialNetworkPanel" colSpan="12">
+					<label name="googleLabel" title="&lt;a class='fa fa-google-plus' href='http://www.google.com' target='_blank' /&gt;" colSpan="2"/>
+					<label name="facebookLabel" title="&lt;a class='fa fa-facebook' href='http://www.facebook.com' target='_blank' /&gt;" colSpan="2"/>
+					<label name="twitterLabel" title="&lt;a class='fa fa-twitter' href='http://www.twitter.com' target='_blank' /&gt;" colSpan="2"/>
+					<label name="linkedinLabel" title="&lt;a class='fa fa-linkedin' href='http://www.linkedin.com' target='_blank' /&gt;" colSpan="2"/>
+					<label name="youtubeLabel" title="&lt;a class='fa fa-youtube' href='http://www.youtube.com' target='_blank' /&gt;" colSpan="2"/>
+				</panel>
+			</panel>
+			<panel name="namePanel" colSpan="9">
+				<field name="fullName" css="bold" showTitle="false" colSpan="12">
+					<editor x-show-titles="false">
+						<field name="titleSelect" placeholder="Civility" colSpan="2"/>
+						<field name="name" css="highlight" placeholder="Name"   onChange="action-group-base-partner-contact-name-onchange" colSpan="5"/>
+						<field name="firstName" css="highlight" placeholder="First name"  onChange="action-group-base-partner-contact-name-onchange" colSpan="5"/>
+					</editor>
+				</field>
+				<static name="duplicatePartnerText" hidden="true" colSpan="12"><![CDATA[<span class='label label-warning'>There is already a partner with this name.</span>]]></static>
+				<panel name="companyPanel" title="Company" colSpan="12" >
+					<field name="mainPartner" domain="self.isContact = false  AND self in (SELECT p FROM Partner p join p.companySet c where c in :companySet)" form-view="partner-form" grid-view="partner-grid"/>
+				</panel>
+				<field name="isContact" hidden="true" colSpan="12"/>
+			</panel>
+		</panel>
+		<panel-tabs name="mainPanelTab">
+			<panel name="contactDetailsPanel" title="Contact details">
+     		  <field name="contactType" required="true"/>
+  	    	  <field name="fax" placeholder="+33000000000" onChange="action-partner-method-normalize-fax" pattern="^\+?([\s()-.]*\d){7,}$"/>
+  			  <field name="jobTitle"/>
+              <field name="reportsTo" domain="self.isContact = true"/>
+              <field name="fixedPhone" placeholder="+33100000000" onChange="action-partner-method-normalize-fixedPhone" pattern="^\+?([\s()-.]*\d){7,}$"/>
+              <field name="mobilePhone" placeholder="+33100000000" onChange="action-partner-method-normalize-mobilePhone" pattern="^\+?([\s()-.]*\d){7,}$"/>
+              <field name="emailAddress" canSelect="false" form-view="email-address-simple-form" x-show-icons="false">
+               <editor x-show-titles="false">
+                 <field name="address" colSpan="12" placeholder="whatever@example.com" pattern="^[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[a-z]{2,})$"/>
+               </editor>
+              </field>
+              <field name="secondaryEmailAddress" canSelect="false" form-view="email-address-simple-form" x-show-icons="false">
+               <editor x-show-titles="false">
+                <field name="address" colSpan="12" placeholder="whatever@example.com" pattern="^[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[a-z]{2,})$"/>
+               </editor>
+              </field>
+              <field name="mainAddress" colSpan="12" canNew="true" form-view="address-form" grid-view="address-grid"/>
+            <field name="timeSlot" colSpan="12"/>
+        </panel>
+			<panel name="activitiesPanel" title="Activities" showIf="id != null" if-module="axelor-crm" onTabSelect="action-partner-method-view-emails-contact" if="__config__.app.isApp('crm')" >
+				<button name="showAllEventsBtn" title="Show all events" css="btn-custom text-left" icon="fa-tasks" onClick="action-contact-view-events" readonlyIf="id == null"/>
+				<panel-include view="incl-activities-contact-form" from="axelor-crm" />
+				<panel-include if-module="axelor-supplychain" view="incl-sales-contact-form" from="axelor-supplychain" if="__config__.app.isApp('supplychain')" />
+				<field name="$emailsList" colSpan="12" type="many-to-many" target="com.axelor.apps.message.db.Message" title="Emails" canNew="false" canSelect="false" canRemove="false"/>
+			</panel>
+			<panel-dashlet name="contactPartnerPanel" action="action-contact-partner-dashlet" title="Partners"/>
+		</panel-tabs>
+		<panel name="settingsPanel" sidebar="true" title="Settings">
+			<field name="partnerSeq"/>
+			<field name="language" canEdit="false"/>
+			<panel name="assignedToPanel" title="Assigned to" canCollapse="true" colSpan="12">
+				<field name="user" colSpan="6" form-view="user-form" grid-view="user-grid" canNew="false" canEdit="false" canView="false"/>
+				<field name="team" canEdit="false" colSpan="6" form-view="team-form" grid-view="team-grid" if="__config__.app.getApp('base').getTeamManagement()"/>
+				<field name="companySet" colSpan="12" widget="TagSelect" canNew="false" form-view="company-form" grid-view="company-grid"/>
+			</panel>
+		</panel>
+		<panel name="notesPanel" title="Notes" colSpan="12" sidebar="true">
+			<field name="description" showTitle="false" colSpan="12" height="6" widget="Html"/>
+		</panel>
+		<panel name="contactAttrsPanel">
+			<field name="contactAttrs" colSpan="12" />
+		</panel>
+		<panel-mail name="mailsPanel">
+			<mail-messages limit="4" />
+			<mail-followers />
+		</panel-mail>
+	</form>
 
 </object-views>
