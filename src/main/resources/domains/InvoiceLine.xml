@@ -7,12 +7,10 @@
     <module name="account" package="com.axelor.apps.account.db"/>
 	<entity name="InvoiceLine">
         <string name="hsbn" title="HSBN"/>
-        <decimal name="netAmount" title="Net Amount" readonly="true"/>
-        <decimal name="gstRate" title="GST Rate" readonly="true"/>
+        <decimal name="gstRate" title="GST Rate" readonly="true" scale="3" precision="20"/>
         <decimal name="igst" title="IGST" readonly="true"/>
         <decimal name="cgst" title="CGST" readonly="true"/>
         <decimal name="sgst" title="SGST" readonly="true"/>
-        <decimal name="grossAmount" title="Gross Amount" readonly="true"/>
 	</entity>
 
 </domain-models>

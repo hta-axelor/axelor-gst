@@ -138,12 +138,17 @@
 	<menuitem name="gst-root-invoice" title="Invoice" parent="gst-root" icon="fa-list"/>
 
 	<menuitem name="gst-root-invoice-create-invoice" title="Create Invoice"
-		parent="gst-root-invoice" action="gst.root.invoice.create.invoice"
+		parent="gst-root-invoice" action="gst-root-invoice-create-invoice"
 		order="1" />
-
-	<action-view name="gst.root.invoice.create.invoice" title="Create Invoice"
+		
+	<action-view name="gst-root-invoice-create-invoice" title="Create Invoice"
 		model="com.axelor.apps.account.db.Invoice">
-		<view type="form" name="invoice-form" />
+		<view type="form" name="invoice-form"/>
+		<view type="grid" name="invoice-grid"/>
+		<view-param name="search-filters" value="customer-invoices-filters"/>
+		<domain>self.operationTypeSelect = 3</domain>
+		<context name="_operationTypeSelect" expr="eval:3"/>
+		<context name="todayDate" expr="eval:__config__.app.getTodayDate()" />
 	</action-view>
 
 	<menuitem name="gst-root-invoice-draft-invoices" title="Draft Invoices"

@@ -7,14 +7,11 @@
   <module name="account" package="com.axelor.apps.account.db"/>
 
 	<entity name="Invoice">
-		<many-to-one name="invoiceAddress" title="Invoice Address" ref="com.axelor.apps.base.db.PartnerAddress" required="true" />
-		<many-to-one name="shippingAddress" title="Shipping Address" ref="com.axelor.apps.base.db.PartnerAddress" />
+		<many-to-one name="shippingAddress" title="Shipping Address" ref="com.axelor.apps.base.db.Address" />
 		<boolean name="isInvoiceAddress" title="Use invoice address as shipping" default="true" />
-		<decimal name="netAmount" title="Net Amount" readonly="true" />
 		<decimal name="netIgst" title="Net IGST" readonly="true" />
 		<decimal name="netCgst" title="Net CGST" readonly="true" />
 		<decimal name="netSgst" title="Net SGST" readonly="true" />
-		<decimal name="grossAmount" title="Gross Amount" readonly="true" />
 	</entity>
 
 </domain-models>

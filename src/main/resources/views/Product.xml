@@ -8,10 +8,13 @@
    		<toolbar>
         	<button name="catalogBtn" title="Catalog" onClick="action-print-product-catalog" icon="fa-book"/>
 			<button name="checkDuplicateBtn" title="Check Duplicate" onClick="action-general-check-duplicate-records"/>
-			<button name="product_grid_create_invoice_btn" icon="fa-list"
-				title="Invoice"
-				onClick="action-gst-product-validate,action-gst-method-product-get-invoice-details" />
 	    </toolbar>
+	    <menubar>
+			<menu title="Tools" icon="fa-wrench" showTitle="true">
+				<item name="product_grid_create_invoice_btn" title="Create invoice" action="action-gst-product-validate,action-gst-view-create-invoice-wizard-open"/>
+				<item name="product_grid_print_btn"  title="Create report" action="action-gst-product-validate,action-gst-method-product-set-attachment-path,action-gst-report-product"/>
+			</menu>
+		</menubar>
 	    <field name="code" x-bind="{{code|unaccent|uppercase}}" width="120"/>
 	    <field name="name" width="300"/>
 	    <field name="productCategory" form-view="product-category-form" grid-view="product-category-grid"/>
@@ -303,17 +306,22 @@
     	</panel-mail>
 	</form>
 
+    <action-validate name="action-validate-invoice-check-product-selection">
+		<error message="Please select at least 1 item" if="eval :_ids == null" />
+	</action-validate>
+	
 	<action-record name="action-gst-record-product-category-copy-gst"
 		model="com.axelor.apps.base.db.Product">
 		<field name="gstRate" expr="eval:productCategory?.gstRate" />
 	</action-record>
-
-	<action-validate name="action-gst-product-validate">
-		<error message="Please select at least 1 item" if="eval :_ids == null" />
-	</action-validate>
-
-	<action-method name="action-gst-method-product-get-invoice-details">
-		<call class="com.axelor.gst.web.ProductController" method="getInvoiceDetails" />
-	</action-method>
+	
+	<action-view name="action-gst-view-create-invoice-wizard-open" title="Create Invoice" model="com.axelor.apps.account.db.Invoice">
+	  	<view type="form" name="create-invoice-wizard-form"/>
+	  	<view-param name="popup" value="reload"/>
+	  	<view-param name="show-toolbar" value="false"/>
+	  	<view-param name="show-confirm" value="false" />
+  	  	<view-param name="popup-save" value="false"/>
+	  	<context name="product-ids" expr="eval: _ids" />
+	</action-view>
 
 </object-views>

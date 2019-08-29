@@ -8,7 +8,7 @@
 
 	<entity name="Product">
 		<string name="hsbn" title="HSBN"/>
-		<decimal name="gstRate" title="GST Rate"/>
+		<decimal name="gstRate" title="GST Rate" scale="3" precision="20"/>
 	</entity>
 
 </domain-models>
