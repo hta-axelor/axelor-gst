@@ -6,7 +6,7 @@ import com.axelor.exception.AxelorException;
 
 public interface InvoiceLineGstService {
 
-	public void computeGstValues(Invoice invoice, InvoiceLine invoiceLine) throws AxelorException;
- 	public void getGstTaxLine(InvoiceLine invoiceLine) throws AxelorException;
-
+    public void computeGstValues(Invoice invoice, InvoiceLine invoiceLine) throws AxelorException;
+  
+    public void getGstTaxLine(InvoiceLine invoiceLine) throws AxelorException;
 }

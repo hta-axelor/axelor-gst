@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+   
+    <form id="gst-city-form" name="city-form" title="City" model="com.axelor.apps.base.db.City" width="large">
+    	<panel name="mainPanel">
+			<field name="name"/>
+			<field name="artmin" colSpan="2"/>
+			<field name="zip" colSpan="4"/>
+			<field name="inseeCode"/>
+			<field name="hasZipOnRight"/>
+		</panel>
+		<panel name="localizationPanel" title="Localization">
+			<field name="country" form-view="country-form" grid-view="country-grid" />
+		    <!-- GST CHANGES BEGINS -->			
+			<field name="state" form-view="state-form" grid-view="state-grid" onChange="action-gst-record-city-country-default"/>
+		    <!-- GST CHANGES END -->
+			<field name="department" form-view="department-form" grid-view="department-grid"/>
+			<field name="canton" form-view="canton-form" grid-view="canton-grid"/>
+		</panel>  
+		<panel name="demographyPanel" title="Demography">
+			<field name="nbInhCommune"/>
+		</panel> 
+    </form>
+    
+    <!-- GST CHANGES BEGINS -->	
+    <action-record name="action-gst-record-city-country-default"
+		model="com.axelor.apps.base.db.Address">
+		<field name="country" expr="eval: state?.country" />
+	</action-record>
+	<!-- GST CHANGES END -->	
+	
+</object-views>

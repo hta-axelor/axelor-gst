@@ -6,12 +6,12 @@
 
 	<kanban id="gst-invoice-kanban" name="invoice-kanban" title="Invoice Kanban" model="com.axelor.apps.account.db.Invoice"
 		columnBy="statusSelect" sequenceBy="priority">
-		<field name="reference" />
+		<field name="invoiceId" />
 		<field name="company" />
 		<field name="partner" />
 
 		<template><![CDATA[
-		    <h4>{{reference}}</h4>
+		    <h4>{{invoiceId}}</h4>
   			<h4>{{company.name}}</h4>
   			<h4>{{party.name}}</h4>
   		]]></template>
@@ -331,22 +331,6 @@ InvoiceSet.length > 0))"
 			<mail-followers />
 		</panel-mail>
 	</form>
-	
-	<search-filters name="invoice-filters" model="com.axelor.apps.account.db.Invoice"
-		title="Invoice Filter">
-		<filter title="Draft">
-			<domain>self.statusSelect = '1'</domain>
-		</filter>
-		<filter title="Validated">
-			<domain>self.statusSelect = '2'</domain>
-		</filter>
-		<filter title="Paid">
-			<domain>self.statusSelect = '3'</domain>
-		</filter>
-		<filter title="Cancelled">
-			<domain>self.statusSelect = '4'</domain>
-		</filter>
-	</search-filters>
 	
 	<action-attrs name="action-gst-attrs-invoice-create-domain-for-shipping-address">
 		<attribute name="domain" for="shippingAddress" expr="eval: &quot;self.id IN (${(partner?.partnerAddressList?.findAll{it.isInvoicingAddr}.collect{it.address.id}+[null]).join(',')})&quot;" />

@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
 
-	<grid id="gst-bank-details-grid" name="bank-details-grid" title="Bank details" model="com.axelor.apps.base.db.BankDetails">
+	<grid id="gst-bank-details-grid"  name="bank-details-grid" title="Bank details" model="com.axelor.apps.base.db.BankDetails">
 		<toolbar>
 			<button name="checkDuplicateBtn" title="Check Duplicate" onClick="action-general-check-duplicate-records"/>
 		</toolbar>
@@ -16,7 +16,7 @@
         <field name="ifsc" />
 	</grid>
 
-	<form id="gst-bank-details-form" onSave="action-validate-bank-details-bbanKey" onNew="action-group-account-bank-details-form-onnew" name="bank-details-form" title="Bank details"
+	<form id="gst-bank-details-form"  onSave="action-validate-bank-details-bbanKey" onNew="action-group-account-bank-details-form-onnew" name="bank-details-form" title="Bank details"
 		  onLoad="action-group-account-bank-details-form-onload" model="com.axelor.apps.base.db.BankDetails" width="large">
 		<panel name="ownerPanel" title="Owner">
 			<field name="partner" onChange="action-set-owner-name,action-bank-details-attrs-specific-notes" domain="self.isContact = false" form-view="partner-form" grid-view="partner-grid" />
@@ -27,10 +27,12 @@
 			<field name="currency"/>
             <field name="code" x-bind="{{code|uppercase}}" hidden="true" />
 		</panel>
+		<!-- GST CHANGES BEGINS -->
 		<panel name="typePanel">
 		     <field name="type" />
 		     <field name="ifsc" />
 		</panel>
+		 <!-- GST CHANGES END -->
 		<panel name="activePanel" sidebar="true">
 			<field name="active" widget="boolean-switch"/>
 		</panel>

@@ -90,7 +90,7 @@
 		parent="gst-root-partner-configurations" action="gst.root.partner.configurations.state" />
 
 	<action-view name="gst.root.partner.configurations.state"
-		title="State" model="com.axelor.gst.db.State">
+		title="State" model="com.axelor.apps.gst.db.State">
 		<view type="grid" name="state-grid" />
 		<view type="form" name="state-form" />
 	</action-view>
@@ -159,7 +159,10 @@
 		model="com.axelor.apps.account.db.Invoice">
 		<view type="grid" name="invoice-grid" />
 		<view type="form" name="invoice-form" />
-		<domain>self.statusSelect = '1'</domain>
+		<view-param name="search-filters" value="customer-invoices-filters"/>
+		<domain>self.statusSelect = '1' AND self.operationTypeSelect = 3</domain>
+		<context name="_operationTypeSelect" expr="eval:3"/>
+		<context name="todayDate" expr="eval:__config__.app.getTodayDate()" />
 	</action-view>
 
 	<menuitem name="gst-root-invoice-validated-invoices" title="Validated Invoices"
@@ -170,7 +173,10 @@
 		title="Validated Invoices" model="com.axelor.apps.account.db.Invoice">
 		<view type="grid" name="invoice-grid" />
 		<view type="form" name="invoice-form" />
-		<domain>self.statusSelect = '2'</domain>
+		<view-param name="search-filters" value="customer-invoices-filters"/>
+		<domain>self.statusSelect = '2' AND self.operationTypeSelect = 3</domain>
+		<context name="_operationTypeSelect" expr="eval:3"/>
+		<context name="todayDate" expr="eval:__config__.app.getTodayDate()" />
 	</action-view>
 
 	<menuitem name="gst-root-invoice-paid-invoices" title="Paid Invoices"
@@ -181,7 +187,10 @@
 		model="com.axelor.apps.account.db.Invoice">
 		<view type="grid" name="invoice-grid" />
 		<view type="form" name="invoice-form" />
-		<domain>self.statusSelect = '3'</domain>
+		<view-param name="search-filters" value="customer-invoices-filters"/>
+		<domain>self.statusSelect = '3'AND self.operationTypeSelect = 3</domain>
+		<context name="_operationTypeSelect" expr="eval:3"/>
+		<context name="todayDate" expr="eval:__config__.app.getTodayDate()" />
 	</action-view>
 
 	<menuitem name="gst-root-invoice-cancelled-invoices" title="Cancelled Invoices"
@@ -192,7 +201,10 @@
 		title="Cancelled Invoices" model="com.axelor.apps.account.db.Invoice">
 		<view type="grid" name="invoice-grid" />
 		<view type="form" name="invoice-form" />
-		<domain>self.statusSelect = '4'</domain>
+		<view-param name="search-filters" value="customer-invoices-filters"/>
+		<domain>self.statusSelect = '4'AND self.operationTypeSelect = 3</domain>
+		<context name="_operationTypeSelect" expr="eval:3"/>
+		<context name="todayDate" expr="eval:__config__.app.getTodayDate()" />
 	</action-view>
 
 	<menuitem name="gst-root-invoice-all-invoices" title="All Invoices"
@@ -204,7 +216,10 @@
 		<view type="grid" name="invoice-grid" />
 		<view type="form" name="invoice-form" />
 		<view type="kanban" name="invoice-kanban" />
-		<view-param name="search-filters" value="invoice-filters"/>
+		<view-param name="search-filters" value="customer-invoices-filters"/>
+		<domain>self.operationTypeSelect = 3</domain>
+		<context name="_operationTypeSelect" expr="eval:3"/>
+		<context name="todayDate" expr="eval:__config__.app.getTodayDate()" />
 	</action-view>
 
 

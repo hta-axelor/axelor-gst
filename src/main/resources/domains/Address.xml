@@ -7,7 +7,7 @@
 	<module name="base" package="com.axelor.apps.base.db"/>
 
 	<entity name="Address">
-		<many-to-one name="state" title="State" ref="com.axelor.gst.db.State" />
+		<many-to-one name="state" title="State" ref="com.axelor.apps.gst.db.State" />
 		<string name="fullName" namecolumn="true" search="addressL2,addressL3,addressL4,addressL5,addressL6,city,state" title="Address"/>
 	</entity>
 

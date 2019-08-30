@@ -23,8 +23,10 @@
 			<field name="addressL4" x-bind="{{addressL4|uppercase}}"/>
 			<field name="addressL5" x-bind="{{addressL5|uppercase}}" placeholder="e.g. POB 254"/>
 			<field name="zip"/>
-			<field name="city" onSelect="action-address-attrs-update-domain-city" canEdit="false" canNew="true" onChange="action-address-change-city" form-view="city-form" grid-view="city-grid"/>
-			<field name="state" canNew="true"/>
+		    <!-- GST CHANGES BEGINS -->
+			<field name="city" onSelect="action-address-attrs-update-domain-city" canEdit="false" canNew="true" onChange="action-gst-record-address-city-default-values,action-address-change-city" form-view="city-form" grid-view="city-grid"/>
+			<field name="state" canNew="true" />
+		    <!-- GST CHANGES END -->
 			<field name="addressL6" x-bind="{{addressL6|uppercase}}" required="true"/>
 			<static name="addressL6Text" colSpan="12">Notice: The Zip/City field is automatically filled when the city is selected. You can change it when the Zip/City pair is missing or in case of minor change.</static>
 			<button-group name="map1BtnGroup" colSpan="6" hideIf="$popup()">
@@ -57,8 +59,10 @@
 			<field name="addressL4" x-bind="{{addressL4|uppercase}}"/>
 			<field name="addressL5" x-bind="{{addressL5|uppercase}}" placeholder="e.g. POB 254"/>
             <field name="zip" />
-			<field name="city" onSelect="action-address-attrs-update-domain-city" canEdit="false" canNew="true" onChange="action-address-change-city" form-view="city-form" grid-view="city-grid"/>
+            <!-- GST CHANGES BEGINS -->
+			<field name="city" onSelect="action-address-attrs-update-domain-city" canEdit="false" canNew="true" onChange="action-gst-record-address-city-default-values,action-address-change-city" form-view="city-form" grid-view="city-grid"/>
 			<field name="state" canNew="true"/>
+			 <!-- GST CHANGES END -->
 			<field name="addressL6" x-bind="{{addressL6|uppercase}}" required="true" colSpan="12"/>
 			<static name="addressL6Text" colSpan="12">Notice: The Zip/City field is automatically filled when the city is selected. You can change it when the Zip/City pair is missing or in case of minor change.</static>
 			<field name="isInvoicingAddr" type="boolean" showIf="$popup() &amp;&amp; id == null" title="Invoicing address" />
@@ -84,5 +88,12 @@
 			<panel-related name="pickListPanel" field="pickList" title="Pick list" colSpan="12" form="pick-list-entry-form" grid-view="pick-list-entry-grid"/>
 		</panel>
 	</form>
+	
+	 <!-- GST CHANGES BEGINS -->
+	<action-record name="action-gst-record-address-city-default-values"
+		model="com.axelor.apps.base.db.Address">	
+		<field name="state" expr="eval: city?.state" />
+	</action-record>
+	 <!-- GST CHANGES END -->
 	
 </object-views>

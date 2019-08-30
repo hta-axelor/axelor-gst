@@ -12,7 +12,7 @@
 	    <menubar>
 			<menu title="Tools" icon="fa-wrench" showTitle="true">
 				<item name="product_grid_create_invoice_btn" title="Create invoice" action="action-gst-product-validate,action-gst-view-create-invoice-wizard-open"/>
-				<item name="product_grid_print_btn"  title="Create report" action="action-gst-product-validate,action-gst-method-product-set-attachment-path,action-gst-report-product"/>
+				<item name="product_grid_print_btn"  title="Create report" action="action-gst-product-validate,action-gst-method-print-product-details"/>
 			</menu>
 		</menubar>
 	    <field name="code" x-bind="{{code|unaccent|uppercase}}" width="120"/>
@@ -310,10 +310,13 @@
 		<error message="Please select at least 1 item" if="eval :_ids == null" />
 	</action-validate>
 	
-	<action-record name="action-gst-record-product-category-copy-gst"
-		model="com.axelor.apps.base.db.Product">
+	<action-record name="action-gst-record-product-category-copy-gst" model="com.axelor.apps.base.db.Product">
 		<field name="gstRate" expr="eval:productCategory?.gstRate" />
 	</action-record>
+	
+	<action-method name="action-gst-method-print-product-details" model="com.axelor.apps.base.db.Product">
+	    <call class="com.axelor.apps.gst.web.ProductController" method="printProductDetails" />
+	</action-method>
 	
 	<action-view name="action-gst-view-create-invoice-wizard-open" title="Create Invoice" model="com.axelor.apps.account.db.Invoice">
 	  	<view type="form" name="create-invoice-wizard-form"/>

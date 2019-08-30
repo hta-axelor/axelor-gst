@@ -7,7 +7,7 @@
   <module name="base" package="com.axelor.apps.base.db"/>
 
   <entity name="City"> 
-    <many-to-one name="state" title="State" ref="com.axelor.gst.db.State"/>
+    <many-to-one name="state" title="State" ref="com.axelor.apps.gst.db.State"/>
   </entity>
 
 </domain-models>

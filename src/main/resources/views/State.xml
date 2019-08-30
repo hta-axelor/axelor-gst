@@ -3,17 +3,23 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
 
-	<grid name="state-grid" title="State" model="com.axelor.gst.db.State">
+	<grid name="state-grid" title="State" model="com.axelor.apps.gst.db.State">
 		<field name="name" />
 		<field name="country" />
-		
 	</grid>
 
-	<form name="state-form" title="State" model="com.axelor.gst.db.State">
+	<form name="state-form" title="State" model="com.axelor.apps.gst.db.State" onNew="action-gst-record-address-state-country-default">
 		<panel>
 			<field name="name"/>
 			<field name="country"/>
 		</panel>
 	</form>
+	
+	 <!-- GST CHANGES BEGINS -->	
+    <action-record name="action-gst-record-address-state-country-default"
+		model="com.axelor.apps.gst.db.State">
+		<field name="country" expr="eval: __parent__?.addressL7Country" />
+	</action-record>
+	<!-- GST CHANGES END -->	
 	
 </object-views>
