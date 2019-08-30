@@ -217,10 +217,12 @@ InvoiceSet.length > 0))"
 			<panel name="deliveryPanel" title="Delivery" hideIf="operationSubTypeSelect == 2 " if="__config__.app.isApp('supplychain') &amp;&amp; __config__.app.getApp('supplychain').getGenerateInvoiceFromStockMove()">
 				<panel-dashlet name="showStockMovePanel" action="action-invoice-view-show-stock-move" colSpan="12" />
 			</panel>
-			<panel name="gstPanel" title="GST">
+			<!-- GST CHANGES BEGINS -->		
+			<panel name="gstPanel" title="GST" if="__config__.app.isApp('gst')" if-module="axelor-gst">
 			  <field name="isInvoiceAddress"/>
 		  	  <field name="shippingAddress"  hideIf="isInvoiceAddress" onSelect="action-gst-attrs-invoice-create-domain-for-shipping-address" />
   			</panel>
+  			<!-- GST CHANGES END -->		
 		</panel-tabs>
 
         <panel name="actionsPanel" hideIf="partner == null" sidebar="true">
@@ -300,11 +302,13 @@ InvoiceSet.length > 0))"
 			</field>
 		</panel>
 		
-		<panel name="gst-computation-panel" title="GST Computation" sidebar="true" hideIf="partner == null">
+		<!-- GST CHANGES BEGINS -->		
+		<panel name="gst-computation-panel" title="GST Computation" sidebar="true" hideIf="partner == null" if="__config__.app.isApp('gst')" if-module="axelor-gst">
 		   <field name="netIgst" colSpan="6" />
 		   <field name="netCgst" colSpan="6" />
 		   <field name="netSgst" colSpan="6" />
 		</panel>
+		<!-- GST CHANGES END -->		
 		
 		<panel name="totalsCompanyCurrencyPanel" title="Totals company currency" itemSpan="6" sidebar="true" hideIf="partner == null || company == null || currency == null || company.currency.code == currency.code">
 			<field name="company.currency.code" hidden="true"/>
@@ -332,6 +336,7 @@ InvoiceSet.length > 0))"
 		</panel-mail>
 	</form>
 	
+	<!-- GST CHANGES BEGINS -->			
 	<action-attrs name="action-gst-attrs-invoice-create-domain-for-shipping-address">
 		<attribute name="domain" for="shippingAddress" expr="eval: &quot;self.id IN (${(partner?.partnerAddressList?.findAll{it.isInvoicingAddr}.collect{it.address.id}+[null]).join(',')})&quot;" />
 	</action-attrs>
@@ -348,5 +353,6 @@ InvoiceSet.length > 0))"
     	<field name="purchaseOrder" expr="eval: null"/>
     	<field name="partnerTaxNbr" expr="eval: partner?.taxNbr"/>
     </action-record>
+    <!-- GST CHANGES END -->		
 
 </object-views>

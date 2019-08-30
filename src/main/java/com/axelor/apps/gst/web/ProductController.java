@@ -6,9 +6,11 @@ import com.axelor.apps.account.db.Invoice;
 import com.axelor.apps.account.db.repo.InvoiceRepository;
 import com.axelor.apps.base.db.Product;
 import com.axelor.apps.base.db.repo.ProductRepository;
+import com.axelor.apps.base.service.user.UserService;
 import com.axelor.apps.gst.report.IReport;
 import com.axelor.apps.gst.service.ProductInvoiceService;
 import com.axelor.apps.supplychain.service.app.AppSupplychainService;
+import com.axelor.auth.db.User;
 import com.axelor.exception.AxelorException;
 import com.axelor.exception.service.TraceBackService;
 import com.axelor.i18n.I18n;
@@ -49,15 +51,16 @@ public class ProductController {
     @SuppressWarnings("unchecked")
 	public void printProductDetails(ActionRequest request, ActionResponse response) throws AxelorException {
 		    String productIds = "";
-		 
+		    
+		    User user = Beans.get(UserService.class).getUser();
 			List<Integer> SelectedProductList = (List<Integer>) request.getContext().get("_ids");
 		    if (SelectedProductList != null) {
 		      productIds = Joiner.on(",").join(SelectedProductList);
 		    }
 		    String name = "Product Details";
 		    String fileLink =
-		        ReportFactory.createReport(IReport.PRODUCT_DETAILS, name + "-${date}")
-		            .addParam("ids", productIds).generate().getFileLink();
+		        ReportFactory.createReport(IReport.PRODUCT_DETAILS, name + "-${date}").addParam("UserId", user.getId())
+		            .addParam("ProductIds", productIds).generate().getFileLink();
 
 		    response.setView(ActionView.define(name).add("html", fileLink).map());
 	}

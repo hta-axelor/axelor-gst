@@ -10,20 +10,10 @@
 			<field name="partner" canEdit="false" />
 		</panel>
 		<panel name="actionsPanel" sidebar="true" title="Actions">
-			<button name="generateInvoice" title="Generate Invoice" onClick="action-gst-invoice-group-show-invoice-btn-on-click"/>
+			<button name="generateInvoice" title="Generate Invoice" onClick="action-gst-method-product-create-invoice" readonlyIf="!(company &amp;&amp; partner)"/>
 	  	</panel>
     </form>
     
-    <action-group name="action-gst-invoice-group-show-invoice-btn-on-click">
-		<action name="action-gst-invoice-form-validate" />
-		<action name="action-gst-method-product-create-invoice" />
-		<action name="close" />
-	</action-group>
-
-	<action-validate name="action-gst-invoice-form-validate">
-		<error message="Please enter all field" if="!(company &amp;&amp; partner)" />
-	</action-validate>
-	
 	<action-method name="action-gst-method-product-create-invoice">
 		<call class="com.axelor.apps.gst.web.ProductController" method="createInvoice" />
 	</action-method>

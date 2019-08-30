@@ -94,16 +94,19 @@
 				<field name="saleOrderLine" canEdit="false" if="__config__.app.isApp('supplychain') &amp;&amp; __config__.app.getApp('supplychain').getManageInvoicedAmountByLine()" if-module="axelor-supplychain" form-view="sale-order-line-invoice-form" grid-view="sale-order-line-invoice-grid" domain="(self.saleOrder.statusSelect = 3 OR self.saleOrder.statusSelect = 4 ) AND EXISTS(SELECT i FROM Invoice i WHERE i = :invoice AND self.saleOrder.clientPartner = i.partner )"/>
 				<field name="purchaseOrderLine" canEdit="false" if-module="axelor-supplychain" if="__config__.app.isApp('supplychain') &amp;&amp; __config__.app.getApp('supplychain').getManageInvoicedAmountByLine()" form-view="purchase-order-line-form" grid-view="purchase-order-line-grid"/>
 			</panel>
-			<panel name="gstPanel" title="GST">
+			<!-- GST CHANGES BEGINS -->		
+			<panel name="gstPanel" title="GST" if="__config__.app.isApp('gst')" if-module="axelor-gst">
   		    	<field name="hsbn" colSpan="12"/>
   		    	<field name="gstRate" />
   		    	<field name="igst" />
 				<field name="cgst" />
 				<field name="sgst" />
   			</panel>
+  			<!-- GST CHANGES END -->		
 		</panel-tabs>
 	</form>
 	
+	<!-- GST CHANGES BEGINS -->		
 	 <action-group id="gst-action-group-account-invoice-line-qty-onchange" name="action-group-account-invoice-line-qty-onchange">
 		<action name="action-invoice-line-method-get-discount"/>
 		<action name="action-invoice-line-method-compute"/>
@@ -134,5 +137,5 @@
 	<action-method name="action-gst-method-invoice-line-calculate-gst-values">
 	    <call class="com.axelor.apps.gst.web.InvoiceLineController" method="computeGstValues" />
 	</action-method>
-
+    <!-- GST CHANGES BEGINS -->		
 </object-views>

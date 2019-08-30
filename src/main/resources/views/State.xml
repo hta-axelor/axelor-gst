@@ -15,11 +15,9 @@
 		</panel>
 	</form>
 	
-	 <!-- GST CHANGES BEGINS -->	
     <action-record name="action-gst-record-address-state-country-default"
 		model="com.axelor.apps.gst.db.State">
 		<field name="country" expr="eval: __parent__?.addressL7Country" />
 	</action-record>
-	<!-- GST CHANGES END -->	
 	
 </object-views>

@@ -9,12 +9,14 @@
         	<button name="catalogBtn" title="Catalog" onClick="action-print-product-catalog" icon="fa-book"/>
 			<button name="checkDuplicateBtn" title="Check Duplicate" onClick="action-general-check-duplicate-records"/>
 	    </toolbar>
+	    <!-- GST CHANGES BEGINS -->		
 	    <menubar>
-			<menu title="Tools" icon="fa-wrench" showTitle="true">
+			<menu title="Tools" icon="fa-wrench" showTitle="true" if="__config__.app.isApp('gst')" if-module="axelor-gst">
 				<item name="product_grid_create_invoice_btn" title="Create invoice" action="action-gst-product-validate,action-gst-view-create-invoice-wizard-open"/>
 				<item name="product_grid_print_btn"  title="Create report" action="action-gst-product-validate,action-gst-method-print-product-details"/>
 			</menu>
 		</menubar>
+		<!-- GST CHANGES END -->		
 	    <field name="code" x-bind="{{code|unaccent|uppercase}}" width="120"/>
 	    <field name="name" width="300"/>
 	    <field name="productCategory" form-view="product-category-form" grid-view="product-category-grid"/>
@@ -92,7 +94,9 @@
       			</panel>
 		      	<panel name="categorizationPanel" title="Categorization" colSpan="6" colWidths="30%,70%">
 		        	<field name="productFamily" canEdit="false"  colSpan="12" form-view="product-family-form" grid-view="product-family-grid"/>
-		        	<field name="productCategory" canEdit="false" colSpan="12" form-view="product-category-form" grid-view="product-category-grid" onChange="action-gst-record-product-category-copy-gst"/>
+		        	<!-- GST CHANGES BEGINS -->		
+		        	<field name="productCategory" canEdit="false" colSpan="12" form-view="product-category-form" grid-view="product-category-grid" onChange="action-gst-record-product-category-copy-gst" />
+		      	    <!-- GST CHANGES END -->		
 		      	</panel>
       			<panel name="inAtiExpensePanel" colSpan="12">
 			        <field name="inAti" colSpan="6" onChange="action-product-attrs-change-title-based-on-inAti"/>
@@ -292,10 +296,12 @@
 								<field name="countryOfOrigin" showIf="usedInDEB"/>	
 							</panel>
   			</panel>
-  			<panel name="gstPanel" title="GST">
+  			<!-- GST CHANGES BEGINS -->		
+  			<panel name="gstPanel" title="GST" if="__config__.app.isApp('gst')" if-module="axelor-gst">
   		    	<field name="hsbn" />
   		    	<field name="gstRate" />
   			</panel>
+  			<!-- GST CHANGES END -->		
   		</panel-tabs>
   		<panel name="attrsPanel">
   			<field name="attrs" colSpan="12" />
@@ -305,7 +311,8 @@
     		<mail-messages />
     	</panel-mail>
 	</form>
-
+	
+	<!-- GST CHANGES BEGINS -->		
     <action-validate name="action-validate-invoice-check-product-selection">
 		<error message="Please select at least 1 item" if="eval :_ids == null" />
 	</action-validate>
@@ -326,5 +333,6 @@
   	  	<view-param name="popup-save" value="false"/>
 	  	<context name="product-ids" expr="eval: _ids" />
 	</action-view>
+	<!-- GST CHANGES END -->		
 
 </object-views>

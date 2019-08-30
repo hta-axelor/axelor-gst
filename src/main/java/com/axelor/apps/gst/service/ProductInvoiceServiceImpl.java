@@ -110,17 +110,7 @@ public class ProductInvoiceServiceImpl implements ProductInvoiceService {
       List<InvoiceLine> invoiceItemsList = new ArrayList<>();
       TaxLine taxLine = null;
       for (Product product : productList) {
-    	  if(taxLineList.size() == 0) {
-    		  taxLine = new TaxLine();
-        	  taxLine.setTax(tax);
-        	  taxLine.setValue(product.getGstRate());
-        	  taxLine.setStartDate(Beans.get(AppBaseService.class).getTodayDate());
-          }  
-        for (TaxLine taxLineIt : taxLineList) {
-          if (taxLineIt.getValue().setScale(AppBaseService.DEFAULT_NB_DECIMAL_DIGITS, RoundingMode.HALF_UP).equals(product.getGstRate())) {
-            taxLine = taxLineIt;
-          }
-        }
+    	taxLine = invoiceLineGstService.getGstTaxLine(product.getGstRate());
         InvoiceLineGenerator invoiceLineGenerator =
             new InvoiceLineGenerator(
                 invoice,

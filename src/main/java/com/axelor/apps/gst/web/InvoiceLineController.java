@@ -2,6 +2,7 @@ package com.axelor.apps.gst.web;
 
 import com.axelor.apps.account.db.Invoice;
 import com.axelor.apps.account.db.InvoiceLine;
+import com.axelor.apps.account.db.TaxLine;
 import com.axelor.apps.gst.service.InvoiceLineGstService;
 import com.axelor.exception.AxelorException;
 import com.axelor.exception.service.TraceBackService;
@@ -34,7 +35,8 @@ public class InvoiceLineController {
    {
       InvoiceLine invoiceLine = request.getContext().asType(InvoiceLine.class);
       try {
-        invoiceLineGstService.getGstTaxLine(invoiceLine);
+        TaxLine taxLine = invoiceLineGstService.getGstTaxLine(invoiceLine.getGstRate());
+        invoiceLine.setTaxLine(taxLine);
         response.setValues(invoiceLine);
       } catch (Exception e) {
         TraceBackService.trace(response, e);

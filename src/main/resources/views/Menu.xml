@@ -6,15 +6,6 @@
   
 	<menuitem name="gst-root" title="GST" icon="fa-book" if="__config__.app.isApp('gst')"/>
 
-	<!-- DashBoard -->
-	<menuitem name="gst-root-dashboard" title="Dashboard" parent="gst-root" icon="fa-dashboard"
-		action="gst.root.dashboard"/>
-
-	<action-view name="gst.root.dashboard" title="Dashboard">
-		<view type="dashboard" name="gst.dashboard" />
-	</action-view>
-
-
 	<!-- Company -->
 	<menuitem name="gst-root-company" title="Company" parent="gst-root" icon="fa-building" />
 

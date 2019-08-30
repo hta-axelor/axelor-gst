@@ -245,9 +245,11 @@
 					   form-view="partner-stock-settings-form" grid-view="partner-stock-settings-grid"/>
                 <panel-include view="incl-freight-carrer-customer-account-number-list-partner-form"/>
             </panel>
-            <panel name="gstPanel" title="GST">
+            <!-- GST CHANGES BEGINS -->		
+            <panel name="gstPanel" title="GST" if="__config__.app.isApp('gst')" if-module="axelor-gst">
               <field name="gstin" colSpan="12"/>
             </panel>
+            <!-- GST CHANGES END -->		
         </panel-tabs>
         <panel name="partnerAttrsPanel">
             <field name="partnerAttrs" colSpan="12" />
@@ -311,7 +313,9 @@
 		</panel>
 		<panel-tabs name="mainPanelTab">
 			<panel name="contactDetailsPanel" title="Contact details">
-     		  <field name="contactType" required="true"/>
+		      <!-- GST CHANGES BEGINS -->		
+     		  <field name="contactType" required="true" if="__config__.app.isApp('gst')" if-module="axelor-gst"/>
+     		  <!-- GST CHANGES END -->		
   	    	  <field name="fax" placeholder="+33000000000" onChange="action-partner-method-normalize-fax" pattern="^\+?([\s()-.]*\d){7,}$"/>
   			  <field name="jobTitle"/>
               <field name="reportsTo" domain="self.isContact = true"/>
@@ -322,11 +326,13 @@
                  <field name="address" colSpan="12" placeholder="whatever@example.com" pattern="^[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[a-z]{2,})$"/>
                </editor>
               </field>
-              <field name="secondaryEmailAddress" canSelect="false" form-view="email-address-simple-form" x-show-icons="false">
+              <!-- GST CHANGES BEGINS -->		
+              <field name="secondaryEmailAddress" canSelect="false" form-view="email-address-simple-form" x-show-icons="false" if="__config__.app.isApp('gst')" if-module="axelor-gst">
                <editor x-show-titles="false">
                 <field name="address" colSpan="12" placeholder="whatever@example.com" pattern="^[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[a-z]{2,})$"/>
                </editor>
               </field>
+              <!-- GST CHANGES END -->		
               <field name="mainAddress" colSpan="12" canNew="true" form-view="address-form" grid-view="address-grid"/>
             <field name="timeSlot" colSpan="12"/>
         </panel>

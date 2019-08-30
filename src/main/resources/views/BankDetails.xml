@@ -28,7 +28,7 @@
             <field name="code" x-bind="{{code|uppercase}}" hidden="true" />
 		</panel>
 		<!-- GST CHANGES BEGINS -->
-		<panel name="typePanel">
+		<panel name="typePanel" if="__config__.app.isApp('gst')" if-module="axelor-gst">
 		     <field name="type" />
 		     <field name="ifsc" />
 		</panel>
