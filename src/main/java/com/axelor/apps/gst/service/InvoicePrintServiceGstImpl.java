@@ -10,28 +10,28 @@ import com.axelor.exception.AxelorException;
 import com.axelor.exception.db.repo.TraceBackRepository;
 import com.axelor.i18n.I18n;
 
-public class InvoicePrintServiceGstImpl extends InvoicePrintServiceImpl{
+public class InvoicePrintServiceGstImpl extends InvoicePrintServiceImpl {
 
-	@Override
-	public ReportSettings prepareReportSettings(Invoice invoice) throws AxelorException {
-		 if (invoice.getPrintingSettings() == null) {
-		      throw new AxelorException(
-		          TraceBackRepository.CATEGORY_MISSING_FIELD,
-		          String.format(
-		              I18n.get(IExceptionMessage.INVOICE_MISSING_PRINTING_SETTINGS),
-		              invoice.getInvoiceId()),
-		          invoice);
-		    }
-		    String locale = ReportSettings.getPrintingLocale(invoice.getPartner());
+  @Override
+  public ReportSettings prepareReportSettings(Invoice invoice) throws AxelorException {
+    if (invoice.getPrintingSettings() == null) {
+      throw new AxelorException(
+          TraceBackRepository.CATEGORY_MISSING_FIELD,
+          String.format(
+              I18n.get(IExceptionMessage.INVOICE_MISSING_PRINTING_SETTINGS),
+              invoice.getInvoiceId()),
+          invoice);
+    }
+    String locale = ReportSettings.getPrintingLocale(invoice.getPartner());
 
-		    String title = I18n.get("Invoice");
-		    if (invoice.getInvoiceId() != null) {
-		      title += " " + invoice.getInvoiceId();
-		    }
+    String title = I18n.get("Invoice");
+    if (invoice.getInvoiceId() != null) {
+      title += " " + invoice.getInvoiceId();
+    }
 
-		    ReportSettings reportSetting =
-		        ReportFactory.createReport(IReport.INVOICE, title + " - ${date}");
+    ReportSettings reportSetting =
+        ReportFactory.createReport(IReport.INVOICE, title + " - ${date}");
 
-		    return reportSetting.addParam("InvoiceId", invoice.getId()).addParam("Locale", locale);
-	}
+    return reportSetting.addParam("InvoiceId", invoice.getId()).addParam("Locale", locale);
+  }
 }

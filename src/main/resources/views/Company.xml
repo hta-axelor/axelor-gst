@@ -13,7 +13,7 @@
 
 	<form id="gst-company-form" extension="true" name="company-form"
 		title="Company" model="com.axelor.apps.base.db.Company" onSave="action-company-check-multi-banks">
-		<panel name="gstPanel" title="GST" sidebar="true">
+		<panel name="gstPanel" title="GST" sidebar="true" if="__config__.app.isApp('gst')" if-module="axelor-gst">
 			<field name="gstin" colSpan="12" />
 		</panel>
 	</form>

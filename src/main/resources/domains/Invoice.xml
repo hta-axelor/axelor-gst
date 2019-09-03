@@ -7,6 +7,7 @@
   <module name="account" package="com.axelor.apps.account.db"/>
 
 	<entity name="Invoice">
+	    <integer name="priority" title="Priority"/>
 		<many-to-one name="shippingAddress" title="Shipping Address" ref="com.axelor.apps.base.db.Address" />
 		<boolean name="isInvoiceAddress" title="Use invoice address as shipping" default="true" />
 		<decimal name="netIgst" title="Net IGST" readonly="true" />

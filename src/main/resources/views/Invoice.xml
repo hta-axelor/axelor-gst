@@ -11,10 +11,10 @@
 		<field name="partner" />
 
 		<template><![CDATA[
-		    <h4>{{invoiceId}}</h4>
-  			<h4>{{company.name}}</h4>
-  			<h4>{{party.name}}</h4>
-  		]]></template>
+		     <h4>{{invoiceId}}</h4>
+	         <h4>{{company.name}}</h4>
+	 	     <h4>{{partner.fullName}}</h4>
+    	]]></template>
 	</kanban>
 	
 	<form id="gst-invoice-form" name="invoice-form" title="Invoice" model="com.axelor.apps.account.db.Invoice"

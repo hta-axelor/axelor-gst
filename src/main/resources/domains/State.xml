@@ -9,6 +9,7 @@
   <entity name="State"> 
     <string name="name" title="Name" required="true" />
     <many-to-one name="country" title="Country" ref="com.axelor.apps.base.db.Country" required="true"/>
+    <string name="stateSeq"  title="State Sequence" readonly="true"/>
   </entity>
 
 </domain-models>

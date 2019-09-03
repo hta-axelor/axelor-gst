@@ -15,7 +15,9 @@
         <field name="exTaxTotal" aggregate="sum"/>
 	    <field name="inTaxTotal" aggregate="sum"/>
 	    <field name="typeSelect" hidden="true"/>
-	    <field name="gstRate" />
+	    <!-- GST CHANGES BEGINS -->
+	    <field name="gstRate" if="__config__.app.isApp('gst')" if-module="axelor-gst"/>
+	    <!-- GST CHANGES END -->
     </grid>
     
    	<form id="gst-invoice-line-form" name="invoice-line-form" title="Invoice line" model="com.axelor.apps.account.db.InvoiceLine" width="large" readonlyIf="$isReadOnly"
@@ -137,5 +139,5 @@
 	<action-method name="action-gst-method-invoice-line-calculate-gst-values">
 	    <call class="com.axelor.apps.gst.web.InvoiceLineController" method="computeGstValues" />
 	</action-method>
-    <!-- GST CHANGES BEGINS -->		
+    <!-- GST CHANGES END -->		
 </object-views>

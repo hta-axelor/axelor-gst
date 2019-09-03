@@ -8,7 +8,9 @@
         <field name="name"/>
         <field name="code" x-bind="{{code|unaccent|uppercase}}"/>
         <field name="parentProductCategory" form-view="product-category-form" grid-view="product-family-grid"/>
-       	<field name="gstRate" />
+        <!-- GST CHANGES BEGINS -->
+       	<field name="gstRate" if="__config__.app.isApp('gst')" if-module="axelor-gst"/>
+       	<!-- GST CHANGES END -->
     </grid>
 
 	<form id="gst-product-category-form" name="product-category-form" title="Product category" model="com.axelor.apps.base.db.ProductCategory" width="large">
@@ -19,7 +21,9 @@
         	<field name="name"/>
         	<field name="code" x-bind="{{code|unaccent|uppercase}}" />
 	        <field name="parentProductCategory" form-view="product-category-form" grid-view="product-family-grid"/>
-	        <field name="gstRate" />
+	        <!-- GST CHANGES BEGINS -->
+	        <field name="gstRate" if="__config__.app.isApp('gst')" if-module="axelor-gst"/>
+	        <!-- GST CHANGES END -->
 		</panel>
    		<panel-dashlet name="salesTurnoverPanel"  title="Sales Turnover" action="dashlet.category.sales.turnover.per.month" colSpan="12" height="350" if-module="axelor-supplychain" if="__config__.app.isApp('supplychain')" />
     </form>  

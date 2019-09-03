@@ -14,5 +14,9 @@
 		<option value="1">Current</option>
 		<option value="2">Saving</option>
 	</selection>
+	
+	<selection id="id.sequence.generic.code.select" name="sequence.generic.code.select">
+		<option value="state">State</option>
+	</selection>
 
 </object-views>

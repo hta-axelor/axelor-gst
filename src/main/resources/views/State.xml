@@ -4,20 +4,34 @@
 	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
 
 	<grid name="state-grid" title="State" model="com.axelor.apps.gst.db.State">
+		<field name="stateSeq" />
 		<field name="name" />
 		<field name="country" />
+
 	</grid>
 
-	<form name="state-form" title="State" model="com.axelor.apps.gst.db.State" onNew="action-gst-record-address-state-country-default">
+	<form name="state-form" title="State" model="com.axelor.apps.gst.db.State" onSave="action-gst-method-form-generate-sequence" onNew="action-gst-record-address-state-country-default">
 		<panel>
-			<field name="name"/>
-			<field name="country"/>
+			<field name="stateSeq" showTitle="false" colSpan="12" showIf="id">
+				<viewer depends="stateSeq"><![CDATA[
+     			 <h3>
+                   <span>{{record.stateSeq}}</span>
+                 </h3>
+    			]]></viewer>
+			</field>
+			<field name="name" />
+			<field name="country" />
 		</panel>
 	</form>
-	
-    <action-record name="action-gst-record-address-state-country-default"
+
+
+	<action-record name="action-gst-record-address-state-country-default"
 		model="com.axelor.apps.gst.db.State">
 		<field name="country" expr="eval: __parent__?.addressL7Country" />
 	</action-record>
-	
+
+	<action-method name="action-gst-method-form-generate-sequence">
+		<call class="com.axelor.apps.gst.web.StateController" method="getSequence" />
+	</action-method>
+
 </object-views>
