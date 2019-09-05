@@ -20,7 +20,7 @@ import java.util.List;
 public class InvoiceLineServiceGstImpl implements InvoiceLineGstService {
 
   @Override
-  @Transactional(rollbackOn = {AxelorException.class, Exception.class})
+  @Transactional()
   public TaxLine getGstTaxLine(BigDecimal gstRate) throws AxelorException {
     Tax tax = Beans.get(TaxRepository.class).all().filter("self.code = ?1", "GST").fetchOne();
     if (tax == null) {
