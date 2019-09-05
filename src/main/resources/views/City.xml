@@ -14,7 +14,7 @@
 		<panel name="localizationPanel" title="Localization">
 			<field name="country" form-view="country-form" grid-view="country-grid" />
 		    <!-- GST CHANGES BEGINS -->			
-			<field name="state" form-view="state-form" grid-view="state-grid" onChange="action-gst-record-city-country-default" if="__config__.app.isApp('gst')" if-module="axelor-gst"/>
+			<field name="state" form-view="state-form" grid-view="state-grid" canNew="true" onChange="action-gst-record-city-country-default" if="__config__.app.isApp('gst')" if-module="axelor-gst"/>
 		    <!-- GST CHANGES END -->
 			<field name="department" form-view="department-form" grid-view="department-grid"/>
 			<field name="canton" form-view="canton-form" grid-view="canton-grid"/>

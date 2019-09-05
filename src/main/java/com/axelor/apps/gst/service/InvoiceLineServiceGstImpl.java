@@ -24,7 +24,8 @@ public class InvoiceLineServiceGstImpl implements InvoiceLineGstService {
   public TaxLine getGstTaxLine(BigDecimal gstRate) throws AxelorException {
     Tax tax = Beans.get(TaxRepository.class).all().filter("self.code = ?1", "GST").fetchOne();
     if (tax == null) {
-      throw new AxelorException(TraceBackRepository.CATEGORY_MISSING_FIELD, IExceptionMessage.NO_TAX);
+      throw new AxelorException(
+          TraceBackRepository.CATEGORY_MISSING_FIELD, IExceptionMessage.NO_TAX);
     }
     List<TaxLine> taxLineList = tax.getTaxLineList();
     TaxLine taxLine = null;

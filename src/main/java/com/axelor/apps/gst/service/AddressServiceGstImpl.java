@@ -47,7 +47,7 @@ public class AddressServiceGstImpl extends AddressServiceImpl {
       addressString.append(address.getAddressL6());
     }
     if (address.getState() != null) {
-      addressString.append(address.getState());
+      addressString.append("\n").append(address.getState().getName());
     }
     if (address.getAddressL7Country() != null) {
       addressString = addressString.append("\n").append(address.getAddressL7Country().getName());

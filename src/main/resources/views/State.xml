@@ -7,10 +7,12 @@
 		<field name="stateSeq" />
 		<field name="name" />
 		<field name="country" />
-
 	</grid>
 
-	<form name="state-form" title="State" model="com.axelor.apps.gst.db.State" onSave="action-gst-method-form-generate-sequence" onNew="action-gst-record-address-state-country-default">
+	<form name="state-form" title="State" model="com.axelor.apps.gst.db.State" onNew="action-gst-record-address-state-country-default">
+	 <toolbar>
+	      <button name="sendByEmailBtn" title="Send Email" icon="fa-envelope" onClick="action-send-by-email-with-template"/>
+	    </toolbar>
 		<panel>
 			<field name="stateSeq" showTitle="false" colSpan="12" showIf="id">
 				<viewer depends="stateSeq"><![CDATA[
@@ -29,9 +31,5 @@
 		model="com.axelor.apps.gst.db.State">
 		<field name="country" expr="eval: __parent__?.addressL7Country" />
 	</action-record>
-
-	<action-method name="action-gst-method-form-generate-sequence">
-		<call class="com.axelor.apps.gst.web.StateController" method="getSequence" />
-	</action-method>
 
 </object-views>

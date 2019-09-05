@@ -20,7 +20,9 @@
 		<field name="registrationCode" />
 		<field name="mainAddress"/>
 		<field name="companyStr" />
+	    <!-- GST CHANGES BEGINS -->	
 		<field name="gstin"/>
+	    <!-- GST CHANGES END -->	
 		<button name="scheduleEventBtn" title="Schedule Event" icon="fa-group" onClick="action-partner-view-schedule-event" if-module="axelor-crm" if="__config__.app.isApp('crm')"/>
 		<button name="sendByEmailBtn" title="Send Email" icon="fa-envelope" onClick="action-send-by-email-with-template" if-module="axelor-crm" if="__config__.app.isApp('crm')"/>
 	</grid>
